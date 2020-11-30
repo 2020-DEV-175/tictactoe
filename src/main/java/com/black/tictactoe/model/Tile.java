@@ -1,22 +1,26 @@
 package com.black.tictactoe.model;
 
 public class Tile {
-    private Value value;
+    private TileValue value;
     private int rowIndex;
     private int colIndex;
 
     public Tile(int rowIndex, int colIndex) {
-        this.value = Value.EMPTY;
+        this.value = TileValue.EMPTY;
         this.rowIndex = rowIndex;
         this.colIndex = colIndex;
     }
 
-    public Value getValue() {
+    public TileValue getValue() {
         return value;
     }
 
-    public void setValue(Value value) {
+    public void setValue(TileValue value) {
         this.value = value;
+    }
+
+    public boolean isEmpty() {
+        return this.value == TileValue.EMPTY;
     }
 
     public int getRowIndex() {
@@ -38,23 +42,6 @@ public class Tile {
     @Override
     public String toString() {
         return value.toString();
-    }
-
-    public enum Value {
-        EMPTY(" "),
-        X("X"),
-        O("O");
-
-        public final String value;
-
-        Value(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String toString() {
-            return value;
-        }
     }
 
 }

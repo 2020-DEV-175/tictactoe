@@ -3,11 +3,12 @@ package com.black.tictactoe.model;
 import static org.springframework.util.StringUtils.hasText;
 
 public class Board {
-    public static final String WRONG_INPUT_FORMAT = "Unexpected input : %s. Please use format x,y. E.g: 1,1";
-    public static final String UNEXPECTED_INPUT_TYPE = "Unexpected input : %s. Please input numeric values. E.g: 1,1";
-    public static final String OUTSIDE_ARRAY_BOUNDARY = "Please select tile within table boundaries";
-    public static final String ROW_OUTSIDE_BOUNDARY = "Row %s is outside table boundaries";
-    public static final String COL_OUTSIDE_BOUNDARY = "Column %s is outside table boundaries";
+    static final String WRONG_INPUT_FORMAT = "Unexpected input : %s. Please use format x,y. E.g: 1,1";
+    static final String UNEXPECTED_INPUT_TYPE = "Unexpected input : %s. Please input numeric values. E.g: 1,1";
+    static final String OUTSIDE_ARRAY_BOUNDARY = "Please select tile within table boundaries";
+    static final String ROW_OUTSIDE_BOUNDARY = "Row %s is outside table boundaries";
+    static final String COL_OUTSIDE_BOUNDARY = "Column %s is outside table boundaries";
+    static final String TILE_ALREADY_SET = "Tile in position  %s is already set. Please update another tile.";
     private static final int ROW_SIZE = 3;
     private static final int COL_SIZE = 3;
     private Tile[][] tiles;
@@ -22,19 +23,24 @@ public class Board {
         }
     }
 
-    public Tile get(String tileId) throws TicTacToeException {
+    public void move(Player player, String tileId) throws TicTacToeException {
         String[] indices = tileId.split(",");
         if (indices.length != 2) {
             throw new TicTacToeException(String.format(WRONG_INPUT_FORMAT, tileId));
         }
         try {
-            return this.get(Integer.parseInt(indices[0]), Integer.parseInt(indices[1]));
+            Tile tile = this.get(Integer.parseInt(indices[0]), Integer.parseInt(indices[1]));
+            if (tile.isEmpty()) {
+                tile.setValue(player.getTileValue());
+            } else {
+                throw new TicTacToeException(String.format(TILE_ALREADY_SET, tileId));
+            }
         } catch (NumberFormatException nfe) {
             throw new TicTacToeException(String.format(UNEXPECTED_INPUT_TYPE, tileId));
         }
     }
 
-    private Tile get(int rowIndex, int colIndex) throws TicTacToeException {
+    public Tile get(int rowIndex, int colIndex) throws TicTacToeException {
         this.validateArrayInboundUserInput(rowIndex, colIndex);
         // User inputs non-zero index
         return tiles[rowIndex - 1][colIndex - 1];
@@ -69,4 +75,11 @@ public class Board {
         }
     }
 
+    public void reset() {
+        for(Tile[] row : tiles) {
+            for(Tile tile : row) {
+                tile.setValue(TileValue.EMPTY);
+            }
+        }
+    }
 }

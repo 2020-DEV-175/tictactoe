@@ -9,7 +9,8 @@ import static com.black.tictactoe.model.Board.ROW_OUTSIDE_BOUNDARY;
 import static com.black.tictactoe.model.Board.TILE_ALREADY_SET;
 import static com.black.tictactoe.model.Board.UNEXPECTED_INPUT_TYPE;
 import static com.black.tictactoe.model.Board.WRONG_INPUT_FORMAT;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BoardTest {
     private Player player;
@@ -74,9 +75,9 @@ public class BoardTest {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(OUTSIDE_ARRAY_BOUNDARY);
-        stringBuilder.append(" ");
+        stringBuilder.append("\n");
         stringBuilder.append(String.format(ROW_OUTSIDE_BOUNDARY, 0));
-        stringBuilder.append(" ");
+        stringBuilder.append("\n");
         stringBuilder.append(String.format(COL_OUTSIDE_BOUNDARY, 4));
         String expectedMessage = stringBuilder.toString();
         assertEquals(exception.getMessage(), expectedMessage);
@@ -90,7 +91,7 @@ public class BoardTest {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(OUTSIDE_ARRAY_BOUNDARY);
-        stringBuilder.append(" ");
+        stringBuilder.append("\n");
         stringBuilder.append(String.format(ROW_OUTSIDE_BOUNDARY, 0));
         String expectedMessage = stringBuilder.toString();
         assertEquals(exception.getMessage(), expectedMessage);
@@ -104,7 +105,7 @@ public class BoardTest {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(OUTSIDE_ARRAY_BOUNDARY);
-        stringBuilder.append(" ");
+        stringBuilder.append("\n");
         stringBuilder.append(String.format(COL_OUTSIDE_BOUNDARY, 4));
         String expectedMessage = stringBuilder.toString();
         assertEquals(exception.getMessage(), expectedMessage);

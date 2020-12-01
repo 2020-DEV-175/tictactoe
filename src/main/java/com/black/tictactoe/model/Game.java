@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static com.black.tictactoe.utils.Constants.EXIT_MESSAGE;
+import static com.black.tictactoe.utils.Constants.NEW_GAME;
+import static com.black.tictactoe.utils.Constants.NEXT_PLAYER_TURN;
+import static com.black.tictactoe.utils.Constants.TIED_RESULT;
+import static com.black.tictactoe.utils.Constants.WINNER_RESULT;
+
 public class Game {
     private static final Logger LOGGER = Logger.getLogger(Game.class);
-    static final String NEXT_PLAYER_TURN = "It's %s turn.";
-    private static final String NEW_GAME = "Let's play a new game !";
-    private static final String WINNER_RESULT = "%s is the winner";
-    private static final String TIED_RESULT = "Tied";
-    public static final String EXIT_MESSAGE = "Enter 'q' or 'quit' to leave the game";
     private Board board;
     private Player[] players = new Player[]{new Player("Player X", TileValue.X), new Player("Player O", TileValue.O)};
     private Player currentPlayer;

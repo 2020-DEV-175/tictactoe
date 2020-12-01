@@ -7,11 +7,12 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import static com.black.tictactoe.utils.Constants.EXIT_MESSAGE;
+import static com.black.tictactoe.utils.Constants.WELCOME_MESSAGE;
+
 @SpringBootApplication
 public class TictactoeApplication implements ApplicationRunner {
 	private static final Logger LOGGER = Logger.getLogger(TictactoeApplication.class);
-	private static final String WELCOME_MESSAGE = "Welcome to Tic Tac Toe";
-	private static final String EXIT_MESSAGE = "You can quit entering 'q' or 'quit'";
 
 	public static void main(String[] args) {
 		SpringApplication.run(TictactoeApplication.class, args);

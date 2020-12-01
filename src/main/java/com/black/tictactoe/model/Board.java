@@ -8,23 +8,23 @@ import java.util.List;
 import java.util.stream.Stream;
 
 import static com.black.tictactoe.model.TileValue.EMPTY;
+import static com.black.tictactoe.utils.Constants.COL_OUTSIDE_BOUNDARY;
+import static com.black.tictactoe.utils.Constants.OUTSIDE_ARRAY_BOUNDARY;
+import static com.black.tictactoe.utils.Constants.ROW_OUTSIDE_BOUNDARY;
+import static com.black.tictactoe.utils.Constants.TILE_ALREADY_SET;
+import static com.black.tictactoe.utils.Constants.UNEXPECTED_INPUT_TYPE;
+import static com.black.tictactoe.utils.Constants.WRONG_INPUT_FORMAT;
 import static org.springframework.util.StringUtils.hasText;
 
-class Board {
+public class Board {
     private static final Logger LOGGER = Logger.getLogger(Board.class);
-    static final String WRONG_INPUT_FORMAT = "Unexpected input : %s. Please use format x,y. E.g: 1,1";
-    static final String UNEXPECTED_INPUT_TYPE = "Unexpected input : %s. Please input numeric values. E.g: 1,1";
-    static final String OUTSIDE_ARRAY_BOUNDARY = "Please select tile within table boundaries.";
-    static final String ROW_OUTSIDE_BOUNDARY = "Row %s is outside table boundaries.";
-    static final String COL_OUTSIDE_BOUNDARY = "Column %s is outside table boundaries.";
-    static final String TILE_ALREADY_SET = "Tile in position  %s is already set. Please update another tile.";
 
     private static final int ROW_SIZE = 3;
     private static final int COL_SIZE = 3;
 
     private Tile[][] tiles;
 
-    Board() {
+    public Board() {
         tiles = new Tile[ROW_SIZE][COL_SIZE];
 
         for (int rowIndex = 0; rowIndex < ROW_SIZE; rowIndex ++) {

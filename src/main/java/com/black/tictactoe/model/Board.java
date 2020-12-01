@@ -1,5 +1,7 @@
 package com.black.tictactoe.model;
 
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -9,6 +11,7 @@ import static com.black.tictactoe.model.TileValue.EMPTY;
 import static org.springframework.util.StringUtils.hasText;
 
 class Board {
+    private static final Logger LOGGER = Logger.getLogger(Board.class);
     static final String WRONG_INPUT_FORMAT = "Unexpected input : %s. Please use format x,y. E.g: 1,1";
     static final String UNEXPECTED_INPUT_TYPE = "Unexpected input : %s. Please input numeric values. E.g: 1,1";
     static final String OUTSIDE_ARRAY_BOUNDARY = "Please select tile within table boundaries.";
@@ -58,14 +61,14 @@ class Board {
         StringBuilder stringBuilder = new StringBuilder();
         if(rowIndex < 1 || rowIndex > ROW_SIZE) {
             stringBuilder.append(OUTSIDE_ARRAY_BOUNDARY);
-            stringBuilder.append("\n");
+            stringBuilder.append(" ");
             stringBuilder.append(String.format(ROW_OUTSIDE_BOUNDARY, rowIndex));
         }
         if(colIndex < 1 || colIndex > COL_SIZE) {
             if (!hasText(stringBuilder.toString())) {
                 stringBuilder.append(OUTSIDE_ARRAY_BOUNDARY);
             }
-            stringBuilder.append("\n");
+            stringBuilder.append(" ");
             stringBuilder.append(String.format(COL_OUTSIDE_BOUNDARY, colIndex));
         }
         if (hasText(stringBuilder.toString())) {
@@ -74,23 +77,23 @@ class Board {
     }
 
     void printBoard() {
-        System.out.println();
+        LOGGER.info("\n");
         String header = " ";
         for (int colIndex = 0; colIndex < COL_SIZE; colIndex ++) {
             header += " | " + (colIndex + 1);
         }
-        System.out.println(header);
+        LOGGER.info(header);
         for (int rowIndex = 0; rowIndex < ROW_SIZE; rowIndex ++) {
             String row = "" + (rowIndex + 1);
             for (int colIndex = 0; colIndex < COL_SIZE; colIndex ++) {
                 row += " | " + tiles[rowIndex][colIndex];
             }
-            System.out.println(row);
+            LOGGER.info(row);
             for (int colIndex = 0; colIndex < COL_SIZE; colIndex ++) {
                 header += " _ " + (colIndex + 1);
             }
         }
-        System.out.println();
+        LOGGER.info("\n");
     }
 
     void reset() {

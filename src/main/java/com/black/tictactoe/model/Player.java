@@ -1,9 +1,13 @@
 package com.black.tictactoe.model;
 
+import org.apache.log4j.Logger;
+
 import java.util.Scanner;
 
 class Player {
+    private static final Logger LOGGER = Logger.getLogger(Player.class);
     private static final String INPUT_POSITION = "Enter your x,y positons. E.g: 1,1";
+    private static final String GOODBYE_MESSAGE = "Goodbye";
     private String name;
     private TileValue tileValue;
 
@@ -21,12 +25,12 @@ class Player {
     }
 
     void playMove(Game game) {
-        System.out.println(INPUT_POSITION);
+        LOGGER.info(INPUT_POSITION);
         String userInput = readUserInput();
         try {
             game.move(userInput);
         } catch (TicTacToeException e) {
-            System.out.println(e.getMessage());
+            LOGGER.info(e.getMessage());
             playMove(game);
         }
     }
@@ -35,7 +39,7 @@ class Player {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.next();
         if ("q".equals(userInput) || "quit".equals(userInput)) {
-            System.out.println("Goodbye");
+            LOGGER.info(GOODBYE_MESSAGE);
             scanner.close();
             System.exit(0);
         }

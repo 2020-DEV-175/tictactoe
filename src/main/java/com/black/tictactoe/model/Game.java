@@ -1,15 +1,18 @@
 package com.black.tictactoe.model;
 
+import org.apache.log4j.Logger;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 public class Game {
+    private static final Logger LOGGER = Logger.getLogger(Game.class);
     static final String NEXT_PLAYER_TURN = "It's %s turn.";
     private static final String NEW_GAME = "Let's play a new game !";
     private static final String WINNER_RESULT = "%s is the winner";
     private static final String TIED_RESULT = "Tied";
-    public static final String EXIT_GAME = "Enter 'exit' to leave the game";
+    public static final String EXIT_MESSAGE = "Enter 'q' or 'quit' to leave the game";
     private Board board;
     private Player[] players = new Player[]{new Player("Player X", TileValue.X), new Player("Player O", TileValue.O)};
     private Player currentPlayer;
@@ -27,8 +30,7 @@ public class Game {
             board.reset();
         }
         board.printBoard();
-        System.out.printf(NEXT_PLAYER_TURN, currentPlayer.getName());
-        System.out.println();
+        LOGGER.info(String.format(NEXT_PLAYER_TURN, currentPlayer.getName()));
         currentPlayer.playMove(this);
     }
 
@@ -38,25 +40,22 @@ public class Game {
         board.printBoard();
         this.handleGameOver();
         if(!isGameOver) {
-            System.out.printf(NEXT_PLAYER_TURN, currentPlayer.getName());
-            System.out.println();
+            LOGGER.info(String.format(NEXT_PLAYER_TURN, currentPlayer.getName()));
             currentPlayer.playMove(this);
         } else {
-            System.out.println(NEW_GAME);
+            LOGGER.info(NEW_GAME);
             reset();
         }
     }
 
     private void handleGameOver() {
         if (getWinner().isPresent()) {
-            System.out.printf(WINNER_RESULT, getWinner().get().getName());
-            System.out.println();
-            System.out.println(EXIT_GAME);
+            LOGGER.info(String.format(WINNER_RESULT, getWinner().get().getName()));
+            LOGGER.info(EXIT_MESSAGE);
             isGameOver = true;
         } else if(!hasAnyMoveLeft()) {
-            System.out.println(TIED_RESULT);
-            System.out.println();
-            System.out.println(EXIT_GAME);
+            LOGGER.info(TIED_RESULT);
+            LOGGER.info(EXIT_MESSAGE);
             isGameOver = true;
         }
     }

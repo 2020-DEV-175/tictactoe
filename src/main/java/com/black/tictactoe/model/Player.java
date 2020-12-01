@@ -22,13 +22,23 @@ class Player {
 
     void playMove(Game game) {
         System.out.println(INPUT_POSITION);
-        Scanner scanner = new Scanner(System.in);
-        String userInput = scanner.next();
+        String userInput = readUserInput();
         try {
             game.move(userInput);
         } catch (TicTacToeException e) {
             System.out.println(e.getMessage());
             playMove(game);
         }
+    }
+
+    String readUserInput() {
+        Scanner scanner = new Scanner(System.in);
+        String userInput = scanner.next();
+        if ("q".equals(userInput) || "quit".equals(userInput)) {
+            System.out.println("Goodbye");
+            scanner.close();
+            System.exit(0);
+        }
+        return userInput;
     }
 }

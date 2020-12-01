@@ -18,6 +18,7 @@ public class TictactoeApplication implements ApplicationRunner {
 		Game game = new Game();
 		while (true) {
 			System.out.println("Welcome to Tic Tac Toe");
+			System.out.println("You can quit entering 'q' or 'quit'");
 			game.startNew();
 		}
 	}
